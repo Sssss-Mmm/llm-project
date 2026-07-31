@@ -4,12 +4,12 @@ from llm_backend.models.document import Document
 from llm_backend.models.message import Message
 
 
-class LLMProvider(ABC):
+class PromptBuilder(ABC):
 
     @abstractmethod
-    def chat(
+    def build(
         self,
         messages: list[Message],
         documents: list[Document],
-    ) -> str:
+    ) -> list[dict]:
         pass
