@@ -3,7 +3,8 @@ from llm_backend.models.document import Document
 
 
 class RecursiveTextChunker(TextChunker):
-
+    
+    """재귀적으로 문서를 분할하는 TextChunker의 구현체이다."""
     def __init__(
         self,
         chunk_size: int = 500,
@@ -17,6 +18,8 @@ class RecursiveTextChunker(TextChunker):
         self.chunk_size = chunk_size
         self.overlap = overlap
 
+
+    """문서 목록을 받아서 각 문서를 분할한 후, 분할된 문서 목록을 반환한다."""
     def split(
         self,
         documents: list[Document],
@@ -31,6 +34,8 @@ class RecursiveTextChunker(TextChunker):
 
         return chunks
 
+    
+    """문서를 분할한다."""
     def _split_document(
         self,
         document: Document,

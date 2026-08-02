@@ -4,13 +4,13 @@ from llm_backend.prompts.prompt_builder import PromptBuilder
 
 
 class OpenAIPromptBuilder(PromptBuilder):
-
+    """OpenAI API에 맞는 프롬프트를 생성하는 Builder 클래스이다."""
     def build(
         self,
         messages: list[Message],
         documents: list[Document],
     ) -> list[dict]:
-
+        """OpenAI API에 맞는 프롬프트를 생성한다."""
         prompt = []
 
         if documents:

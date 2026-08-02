@@ -18,19 +18,19 @@ provider = OpenAIProvider(
 memory = InMemoryConversationMemory()
 retriever = InMemoryRetriever()
 
-
+"""LLM Provider를 반환한다."""
 def get_llm_provider() -> LLMProvider:
     return provider
 
-
+"""Conversation Memory를 반환한다."""
 def get_conversation_memory() -> ConversationMemory:
     return memory
 
-
+"""Retriever를 반환한다."""
 def get_retriever() -> Retriever:
     return retriever
 
-
+"""Chat Service를 반환한다."""
 def get_chat_service(
     provider: LLMProvider = Depends(get_llm_provider),
     memory: ConversationMemory = Depends(get_conversation_memory),

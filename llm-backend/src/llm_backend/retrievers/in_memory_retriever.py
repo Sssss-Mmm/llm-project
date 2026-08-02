@@ -3,8 +3,9 @@ from llm_backend.retrievers.retriever import Retriever
 
 
 class InMemoryRetriever(Retriever):
-
+    """메모리에 저장된 문서를 검색하는 Retriever의 구현체이다."""
     def __init__(self):
+        """InMemoryRetriever를 초기화한다."""
         self.documents = [
             Document(
                 id="doc_1",
@@ -28,7 +29,8 @@ class InMemoryRetriever(Retriever):
         query: str,
         top_k: int = 5,
     ) -> list[Document]:
-        # 간단한 검색 로직: query가 title 또는 content에 포함된 문서를 반환
+        """주어진 쿼리를 기반으로 문서를 검색한다."""
+        # 검색 로직은 단순히 문서의 제목과 내용에 쿼리가 포함되어 있는지 확인하는 방식으로 구현되어 있다.
         results = [
             doc for doc in self.documents
             if query.lower() in doc.title.lower() or query.lower() in doc.content.lower()

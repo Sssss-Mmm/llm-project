@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class Document(BaseModel):
+    """문서를 나타내는 모델이다."""
     id: str = Field(
         min_length=1,
         max_length=100,

@@ -6,7 +6,7 @@ from llm_backend.services.chat_service import ChatService
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
 
-
+"""채팅 API 엔드포인트를 정의한다."""
 @router.post("/", response_model=ChatResponse)
 def chat(
     request: ChatRequest,

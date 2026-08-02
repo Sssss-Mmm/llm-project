@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field 
 
 class ChatRequest(BaseModel):
+    """채팅 요청을 위한 모델이다."""
     conversation_id: str = Field(
         min_length=1,
         max_length=100,
@@ -15,4 +16,5 @@ class ChatRequest(BaseModel):
     )
     
 class ChatResponse(BaseModel):
+    """채팅 응답을 위한 모델이다."""
     reply: str

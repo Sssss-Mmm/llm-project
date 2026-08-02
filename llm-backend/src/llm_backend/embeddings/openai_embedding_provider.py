@@ -1,0 +1,50 @@
+from llm_backend.core.config import settings
+from llm_backend.core.exceptions import OpenAIException
+from llm_backend.core.openai import client
+
+from llm_backend.embeddings.embedding_provider import EmbeddingProvider
+
+from llm_backend.models.document import Document
+from llm_backend.models.embedded_document import EmbeddedDocument
+
+
+class OpenAIEmbeddingProvider(EmbeddingProvider):
+    
+    """OpenAI Embedding Provider를 구현한 클래스이다."""
+    def embed(
+        self,
+        documents: list[Document],
+    ) -> list[EmbeddedDocument]:
+
+        try:
+
+            texts = [
+                document.content
+                for document in documents
+            ]
+
+            response = client.embeddings.create(
+                model=settings.openai_embedding_model,
+                input=texts,
+            )
+
+            embedded_documents = []
+
+            for document, embedding in zip(
+                documents,
+                response.data,
+            ):
+
+                embedded_documents.append(
+                    EmbeddedDocument(
+                        document=document,
+                        embedding=embedding.embedding,
+                    )
+                )
+
+            return embedded_documents
+
+        except Exception as e:
+            raise OpenAIException(
+                "Embedding 생성 실패"
+            ) from e

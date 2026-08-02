@@ -6,13 +6,14 @@ from llm_backend.retrievers.retriever import Retriever
 
 
 class ChatService:
-
+    """LLM과의 대화를 관리하는 서비스 클래스이다."""
     def __init__(
         self,
         provider: LLMProvider,
         memory: ConversationMemory,
         retriever: Retriever,
     ):
+        """ChatService를 초기화한다."""
         self.provider = provider
         self.memory = memory
         self.retriever = retriever
@@ -22,7 +23,7 @@ class ChatService:
         conversation_id: str,
         message: str,
     ) -> str:
-
+        """LLM과의 대화를 수행한다."""
         user_message = Message(
             role=Role.USER,
             content=message,

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from llm_backend.models.document import Document
 
-
+"""문서를 로드하는 Loader의 추상 클래스이다."""
 class DocumentLoader(ABC):
 
     @abstractmethod

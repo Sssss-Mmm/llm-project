@@ -10,11 +10,12 @@ from llm_backend.prompts.prompt_builder import PromptBuilder
 
 
 class OpenAIProvider(LLMProvider):
-
+    """OpenAI LLM Provider를 구현한 클래스이다."""
     def __init__(
         self,
         prompt_builder: PromptBuilder,
     ):
+        """OpenAI LLM Provider를 구현한 클래스이다."""
         self.prompt_builder = prompt_builder
 
     def chat(
@@ -22,7 +23,7 @@ class OpenAIProvider(LLMProvider):
         messages,
         documents,
     ):
-
+        """OpenAI LLM과 대화를 수행한다."""
         prompt = self.prompt_builder.build(
             messages,
             documents,
