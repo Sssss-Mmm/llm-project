@@ -4,12 +4,15 @@ from llm_backend.loaders.document_loader import DocumentLoader
 from llm_backend.models.document import Document
 
 
-class PdfLoader(DocumentLoader):
+class PDFLoader(DocumentLoader):
     """PDF 파일을 로드하는 Loader 클래스이다."""
+        
+
     def load(
         self,
         file_path: str,
     ) -> list[Document]:
+        """PDF 파일을 로드하는 Loader 클래스이다."""
 
         pdf = fitz.open(file_path)
 

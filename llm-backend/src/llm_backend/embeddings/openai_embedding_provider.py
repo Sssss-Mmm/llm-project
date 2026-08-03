@@ -9,13 +9,12 @@ from llm_backend.models.embedded_document import EmbeddedDocument
 
 
 class OpenAIEmbeddingProvider(EmbeddingProvider):
-    
-    """OpenAI Embedding Provider를 구현한 클래스이다."""
+
     def embed(
         self,
         documents: list[Document],
     ) -> list[EmbeddedDocument]:
-
+        """문서 임베딩을 생성하는 Provider 클래스이다."""
         try:
 
             texts = [
@@ -47,4 +46,23 @@ class OpenAIEmbeddingProvider(EmbeddingProvider):
         except Exception as e:
             raise OpenAIException(
                 "Embedding 생성 실패"
+            ) from e
+
+    def embed_query(
+        self,
+        query: str,
+    ) -> list[float]:
+        """질문 임베딩을 생성하는 Provider 클래스이다."""
+        try:
+
+            response = client.embeddings.create(
+                model=settings.openai_embedding_model,
+                input=query,
+            )
+
+            return response.data[0].embedding
+
+        except Exception as e:
+            raise OpenAIException(
+                "질문 Embedding 생성 실패"
             ) from e

@@ -19,35 +19,41 @@ class ChatService:
         self.retriever = retriever
 
     def chat(
-        self,
-        conversation_id: str,
-        message: str,
+    self,
+    conversation_id: str,
+    message: str,
     ) -> str:
-        """LLM과의 대화를 수행한다."""
+        """주어진 메시지를 기반으로 LLM과 대화를 수행한다."""
+        history = self.memory.load(conversation_id)
+
         user_message = Message(
             role=Role.USER,
             content=message,
         )
 
-        self.memory.save(conversation_id, user_message)
+        history.append(user_message)
 
-        history = self.memory.load(conversation_id)
-
-        documents = self.retriever.retrieve(message)
+        documents = self.retriever.retrieve(
+            query=message,
+            top_k=5,
+        )
 
         reply = self.provider.chat(
             history,
             documents,
         )
 
-        assistant_message = Message(
-            role=Role.ASSISTANT,
-            content=reply,
+        self.memory.save(
+            conversation_id,
+            user_message,
         )
 
         self.memory.save(
             conversation_id,
-            assistant_message,
+            Message(
+                role=Role.ASSISTANT,
+                content=reply,
+            ),
         )
 
         return reply
